@@ -1,12 +1,24 @@
 package com.primefaces;
 
+
+import javax.annotation.PostConstruct;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import java.io.Serializable;
 
+//@ManagedBean deprecado
 @Named
-public class HelloWorld {
+@ViewScoped
+public class HelloWorld implements Serializable {
 
-    private String firstName = "John";
-    private String lastName = "Doe";
+    private String firstName = "";
+    private String lastName = "";
+
+    @PostConstruct
+    public void init() {
+        firstName = "Joel";
+        lastName = "Ramirez";
+    }
 
     public String getFirstName() {
         return firstName;
