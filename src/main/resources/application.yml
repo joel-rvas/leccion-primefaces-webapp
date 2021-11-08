@@ -1,0 +1,48 @@
+app:
+  name: Alumno application
+  api:
+    title: Alumno Util APIs
+    version: 1.0.0
+    description: APIs clientes
+    base-package: com.primefaces
+    contact-name: Joel Ramirez
+    contact-email: joel-rvas@outlook.com
+server:
+  port: 5001
+logging:
+  level:
+    root: DEBUG
+    com.canvia: DEBUG
+  pattern:
+    console: "%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%8.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %X{REQUEST_ID} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"
+spring:
+  banner:
+    location: classpath:banner.txt
+  h2:
+    console:
+      enabled: true
+      path: /console
+  datasource:
+    url: jdbc:h2:mem:alumnodb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;DATABASE_TO_UPPER=false
+    platform: h2
+    username: sa
+    password:
+    initialization-mode: always
+    driverClassName: org.h2.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+
+aplication:
+  servers:
+    - ip: '0.0.0.0'
+
+spring.jackson.default-property-inclusion: non_null

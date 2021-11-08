@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es-PE"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>SISTEMA - PRIMEFACES</title>
+</h:head>
+
+<h:body>
+    <h:outputStylesheet library="css" name="seguridad.css"/>
+    <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css"/>
+
+    <h:form id="form">
+
+        <p:outputPanel id="panel" styleClass="p-mt-2">
+            <p:card id="card" style="width: 97%;" class="p-t-2">
+                <f:facet name="header" style="text-align: center">
+                </f:facet>
+                <f:facet name="title">
+                </f:facet>
+
+                <p:panel id="pnlAlumno" header="Mantenimiento de Alumno" toggleable="true"
+                         toggleSpeed="500" widgetVar="panelAlumno"
+                         style="margin-top:10px; align:center">
+
+                    <p:row>
+
+                        <p:column style="align:center">
+
+                            <p:toolbar>
+
+                                <p:toolbarGroup>
+                                    <p:commandButton value="Nuevo" icon="pi pi-plus"
+                                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                                    </p:commandButton>
+                                </p:toolbarGroup>
+                                <p:toolbarGroup align="right">
+                                    <p:commandButton value="Exportar" icon="pi pi-upload" styleClass="ui-button-help"
+                                                     ajax="false">
+                                        <p:dataExporter type="xls" target="dtAlumno" fileName="products"/>
+                                    </p:commandButton>
+                                </p:toolbarGroup>
+                            </p:toolbar>
+
+
+                            <p:dataTable id="dtAlumno" var="p"
+                                         value="#{alumnoBean.alumnoLista}"
+                                         filteredValue="#{alumnoBean.filteredAlumnoLista}"
+                                         style="text-align: left"
+                                         paginator="true" rows="10"
+                                         emptyMessage="No se han encontrado coincidencias con los criterios ingresados">
+
+
+                                <p:column headerText="DNI" style="text-align:left">
+                                    <h:outputText value="#{p.dni}"/>
+                                </p:column>
+
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{p.nombre}"/>
+                                </p:column>
+
+                                <p:column headerText="Apellido" filterBy="#{p.apellido}"
+                                          filterMatchMode="startsWith">
+                                    <h:outputText value="#{p.apellido}"/>
+                                </p:column>
+
+                                <p:column headerText="Num de Contacto">
+                                    <h:outputText value="#{p.celular}"/>
+                                </p:column>
+
+                                <p:column headerText="Estado" filterBy="#{p.inEsta}"
+                                          filterMatchMode="startsWith" sortBy="#{p.indEstado}">
+                                    <h:outputText value="#{p.indEstado eq 1 ? 'ACTIVO' : 'INACTIVO'}"/>
+                                </p:column>
+
+                            </p:dataTable>
+
+                        </p:column>
+
+                    </p:row>
+
+                </p:panel>
+
+
+                <f:facet name="footer">
+                </f:facet>
+
+            </p:card>
+        </p:outputPanel>
+
+
+    </h:form>
+
+</h:body>
+</html>
