@@ -48,33 +48,53 @@
 
 
                             <p:dataTable id="dtAlumno" var="p"
-                                         value="#{alumnoBean.alumnoLista}"
+                                         value="#{alumnoBean.alumnos}"
                                          filteredValue="#{alumnoBean.filteredAlumnoLista}"
                                          style="text-align: left"
                                          paginator="true" rows="10"
                                          emptyMessage="No se han encontrado coincidencias con los criterios ingresados">
 
 
-                                <p:column headerText="DNI" style="text-align:left">
+                                <p:column headerText="DNI" filterBy="#{p.dni}"
+                                          filterMatchMode="startsWith" sortBy="#{p.dni}">
                                     <h:outputText value="#{p.dni}"/>
                                 </p:column>
 
-                                <p:column headerText="Nombre">
+                                <p:column headerText="Nombre" filterBy="#{p.nombre}"
+                                          filterMatchMode="startsWith" sortBy="#{p.nombre}">
                                     <h:outputText value="#{p.nombre}"/>
                                 </p:column>
 
                                 <p:column headerText="Apellido" filterBy="#{p.apellido}"
-                                          filterMatchMode="startsWith">
+                                          filterMatchMode="startsWith" sortBy="#{p.apellido}">
                                     <h:outputText value="#{p.apellido}"/>
                                 </p:column>
 
-                                <p:column headerText="Num de Contacto">
+                                <p:column headerText="# de Contacto" filterBy="#{p.celular}"
+                                          filterMatchMode="startsWith" sortBy="#{p.celular}">
                                     <h:outputText value="#{p.celular}"/>
                                 </p:column>
 
-                                <p:column headerText="Estado" filterBy="#{p.inEsta}"
+                                <p:column headerText="Estado" filterBy="#{p.indEstado}"
                                           filterMatchMode="startsWith" sortBy="#{p.indEstado}">
-                                    <h:outputText value="#{p.indEstado eq 1 ? 'ACTIVO' : 'INACTIVO'}"/>
+                                    <h:outputText value="#{p.indEstado eq 1 ? 'Activo' : 'Inactivo'}"/>
+                                </p:column>
+
+                                <p:column exportable="false" width="100">
+                                    <p:commandButton icon="pi pi-pencil" update=":form:panel"
+                                                     oncomplete="PF('mantAlumnoDialog').show()"
+                                                     styleClass="edit-button rounded-button ui-button-success"
+                                                     process="@this">
+                                        <f:setPropertyActionListener value="#{p}"
+                                                                     target="#{loginBean.selectedAlumno}"/>
+                                        <p:resetInput target=":form:manage-product-content"/>
+                                    </p:commandButton>
+                                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                                                     process="@this"
+                                                     oncomplete="PF('deleteAlumnoDialog').show()">
+                                        <f:setPropertyActionListener value="#{p}"
+                                                                     target="#{loginBean.selectedAlumno}"/>
+                                    </p:commandButton>
                                 </p:column>
 
                             </p:dataTable>
@@ -92,6 +112,24 @@
             </p:card>
         </p:outputPanel>
 
+
+        <p:confirmDialog widgetVar="deleteAlumnoDialog" showEffect="fade" width="300"
+                         message="Desea eliminar al alumno?" header="Confirmar" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{alumnoBean.deleteAlumno}"
+                             process="@this" oncomplete="PF('deleteAlumnoDialog').hide()"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                             onclick="PF('deleteAlumnoDialog').hide()"/>
+        </p:confirmDialog>
+
+        <p:confirmDialog global="true" showEffect="fade" width="300">
+            <p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+            <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                             icon="pi pi-times"/>
+        </p:confirmDialog>
+
+        <p:dialog header="Alumno Mant." showEffect="fade" modal="true" width="300"
+                  widgetVar="mantAlumnoDialog" responsive="true">
+        </p:dialog>
 
     </h:form>
 

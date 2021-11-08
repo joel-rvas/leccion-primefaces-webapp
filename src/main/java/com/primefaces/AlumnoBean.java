@@ -2,10 +2,13 @@ package com.primefaces;
 
 import com.primefaces.jpa.model.TblAlumno;
 import com.primefaces.services.IAlumnoService;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -22,8 +25,9 @@ public class AlumnoBean implements Serializable {
     @Autowired
     IAlumnoService alumnoService;
 
-    List<TblAlumno> alumnoLista;
+    List<TblAlumno> alumnos;
     List<TblAlumno> filteredAlumnoLista;
+    private TblAlumno selectedAlumno;
 
     @PostConstruct
     public void init() throws Exception {
@@ -31,7 +35,14 @@ public class AlumnoBean implements Serializable {
     }
 
     public void listarAlumnos() throws Exception {
-        alumnoLista = alumnoService.listarAlumnos();
+        alumnos = alumnoService.listarAlumnos();
+    }
+
+    public void deleteAlumno() {
+        this.alumnos.remove(this.selectedAlumno);
+        this.selectedAlumno = null;
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alumno eliminado"));
+        PrimeFaces.current().ajax().update("form:messages", "form:dtAlumno");
     }
 
     public String getDni() {
@@ -66,12 +77,20 @@ public class AlumnoBean implements Serializable {
         this.celular = celular;
     }
 
-    public List<TblAlumno> getAlumnoLista() {
-        return alumnoLista;
+    public List<TblAlumno> getAlumnos() {
+        return alumnos;
     }
 
-    public void setAlumnoLista(List<TblAlumno> alumnoLista) {
-        this.alumnoLista = alumnoLista;
+    public void setAlumnos(List<TblAlumno> alumnos) {
+        this.alumnos = alumnos;
+    }
+
+    public TblAlumno getSelectedAlumno() {
+        return selectedAlumno;
+    }
+
+    public void setSelectedAlumno(TblAlumno selectedAlumno) {
+        this.selectedAlumno = selectedAlumno;
     }
 
     public List<TblAlumno> getFilteredAlumnoLista() {
