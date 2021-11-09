@@ -9,12 +9,13 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
 
 @Named
-@RequestScoped
+@ViewScoped
 public class AlumnoBean implements Serializable {
 
     private String dni;
@@ -26,6 +27,7 @@ public class AlumnoBean implements Serializable {
     IAlumnoService alumnoService;
 
     List<TblAlumno> alumnos;
+
     List<TblAlumno> filteredAlumnoLista;
     private TblAlumno selectedAlumno;
 
@@ -38,11 +40,17 @@ public class AlumnoBean implements Serializable {
         alumnos = alumnoService.listarAlumnos();
     }
 
-    public void deleteAlumno() {
+    public void deleteAlumno() throws Exception {
         this.alumnos.remove(this.selectedAlumno);
+        this.alumnoService.eliminarAlumno(this.selectedAlumno);
+        listarAlumnos();
         this.selectedAlumno = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Alumno eliminado"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sistema","Alumno eliminado"));
         PrimeFaces.current().ajax().update("form:messages", "form:dtAlumno");
+    }
+
+    public void guardar(){
+
     }
 
     public String getDni() {

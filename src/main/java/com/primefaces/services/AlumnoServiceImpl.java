@@ -21,6 +21,11 @@ public class AlumnoServiceImpl implements IAlumnoService {
     public List<TblAlumno> listarAlumnos() throws Exception {
         logger.info("call : listarAlumnos");
         return alumnoRepository.findAll();
+    }
 
+    @Override
+    public void eliminarAlumno(TblAlumno alumno) {
+        logger.info("call : eliminarAlumno");
+        alumnoRepository.delete(alumno);
     }
 }
