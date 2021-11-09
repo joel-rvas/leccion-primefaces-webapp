@@ -9,4 +9,5 @@ public interface IAlumnoService {
     List<TblAlumno> listarAlumnos() throws Exception;
     void eliminarAlumno(TblAlumno alumno);
 
+    void actualizarAlumno(TblAlumno alumno);
 }

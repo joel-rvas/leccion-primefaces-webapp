@@ -28,4 +28,10 @@ public class AlumnoServiceImpl implements IAlumnoService {
         logger.info("call : eliminarAlumno");
         alumnoRepository.delete(alumno);
     }
+
+    @Override
+    public void actualizarAlumno(TblAlumno alumno){
+        logger.info("call : actualizarAlumno");
+        alumnoRepository.save(alumno);
+    }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 
 @Named
 @ViewScoped
-public class AlumnoBean implements Serializable {
+public class AlumnoView implements Serializable {
 
     private String dni;
     private String nombre;
@@ -45,12 +45,16 @@ public class AlumnoBean implements Serializable {
         this.alumnoService.eliminarAlumno(this.selectedAlumno);
         listarAlumnos();
         this.selectedAlumno = null;
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Sistema","Alumno eliminado"));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema", "Alumno eliminado"));
         PrimeFaces.current().ajax().update("form:messages", "form:dtAlumno");
     }
 
-    public void guardar(){
-
+    public void guardar() throws Exception {
+        this.alumnoService.actualizarAlumno(this.selectedAlumno);
+        this.selectedAlumno = null;
+        listarAlumnos();
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema", "Alumno actualizado"));
+        PrimeFaces.current().ajax().update("form:messages", "form:dtAlumno");
     }
 
     public String getDni() {

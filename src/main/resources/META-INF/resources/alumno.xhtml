@@ -50,8 +50,8 @@
 
 
                             <p:dataTable id="dtAlumno" var="p"
-                                         value="#{alumnoBean.alumnos}"
-                                         filteredValue="#{alumnoBean.filteredAlumnoLista}"
+                                         value="#{alumnoView.alumnos}"
+                                         filteredValue="#{alumnoView.filteredAlumnoLista}"
                                          style="text-align: left"
                                          paginatorPosition="bottom"
                                          paginator="true" rows="10"
@@ -73,7 +73,7 @@
                                     <h:outputText value="#{p.apellido}"/>
                                 </p:column>
 
-                                <p:column headerText="# de Contacto" filterBy="#{p.celular}"
+                                <p:column headerText="Celular" filterBy="#{p.celular}"
                                           filterMatchMode="startsWith" sortBy="#{p.celular}">
                                     <h:outputText value="#{p.celular}"/>
                                 </p:column>
@@ -84,19 +84,19 @@
                                 </p:column>
 
                                 <p:column exportable="false" width="100">
-                                    <p:commandButton icon="pi pi-pencil" update=":form:panel"
+                                    <p:commandButton icon="pi pi-pencil" update=":form:alumno-contenido"
                                                      oncomplete="PF('mantAlumnoDialog').show()"
                                                      styleClass="edit-button rounded-button ui-button-success"
                                                      process="@this">
                                         <f:setPropertyActionListener value="#{p}"
-                                                                     target="#{alumnoBean.selectedAlumno}"/>
-                                        <p:resetInput target=":form:manage-product-content"/>
+                                                                     target="#{alumnoView.selectedAlumno}"/>
+                                        <!--resetInput target=":form:alumno-contenido"-->
                                     </p:commandButton>
                                     <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
                                                      update=":form:pnlAlumno" process="@this"
                                                      oncomplete="PF('deleteAlumnoDialog').show()">
                                         <f:setPropertyActionListener value="#{p}"
-                                                                     target="#{alumnoBean.selectedAlumno}"/>
+                                                                     target="#{alumnoView.selectedAlumno}"/>
                                     </p:commandButton>
                                 </p:column>
 
@@ -115,11 +115,10 @@
             </p:card>
         </p:outputPanel>
 
-
         <p:confirmDialog widgetVar="deleteAlumnoDialog" showEffect="fade" width="300"
                          message="Desea eliminar al alumno?" header="Confirmar" severity="warn">
 
-            <p:commandButton value="Si" icon="pi pi-check" actionListener="#{alumnoBean.deleteAlumno}"
+            <p:commandButton value="Si" icon="pi pi-check" actionListener="#{alumnoView.deleteAlumno}"
                              process="@this" oncomplete="PF('deleteAlumnoDialog').hide()"/>
 
             <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
@@ -132,24 +131,31 @@
                              icon="pi pi-times"/>
         </p:confirmDialog>
 
-        <p:dialog header="Alumno Mant." showEffect="fade" modal="true" width="300"
-                  widgetVar="mantAlumnoDialog" responsive="true">
-
+        <p:dialog header="Alumno Mantenimiento" showEffect="fade" modal="true" widgetVar="mantAlumnoDialog" width="350" responsive="true">
 
             <p:outputPanel id="alumno-contenido" class="ui-fluid">
 
                 <div class="p-field">
                     <p:outputLabel for="dni">DNI</p:outputLabel>
-                    <p:inputText id="dni" value="#{alumnoBean.selectedAlumno.dni}" required="true"/>
+                    <p:inputText id="dni" value="#{alumnoView.selectedAlumno.dni}" required="true" disabled="true"/>
                 </div>
                 <div class="p-field">
                     <p:outputLabel for="nombre">Nombre</p:outputLabel>
-                    <p:inputText id="nombre" value="#{alumnoBean.selectedAlumno.nombre}" required="true"/>
+                    <p:inputText id="nombre" value="#{alumnoView.selectedAlumno.nombre}" required="true"/>
+                </div>
+                <div class="p-field">
+                    <p:outputLabel for="apellido">Apellido</p:outputLabel>
+                    <p:inputText id="apellido" value="#{alumnoView.selectedAlumno.apellido}" required="true"/>
+                </div>
+                <div class="p-field">
+                    <p:outputLabel for="celular">Celular</p:outputLabel>
+                    <p:inputText id="celular" value="#{alumnoView.selectedAlumno.celular}" required="true"/>
                 </div>
             </p:outputPanel>
 
             <f:facet name="footer">
-                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{alumnoBean.guardar}"
+                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{alumnoView.guardar}"
+                                 oncomplete="PF('mantAlumnoDialog').hide()"
                                  update="alumno-contenido" process="alumno-contenido @this"/>
                 <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('mantAlumnoDialog').hide()"
                                  class="ui-button-secondary"/>
