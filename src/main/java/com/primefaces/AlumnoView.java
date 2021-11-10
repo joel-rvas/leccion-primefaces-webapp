@@ -12,22 +12,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Named
 @ViewScoped
 public class AlumnoView implements Serializable {
 
-    private String dni;
-    private String nombre;
-    private String apelledio;
-    private String celular;
-
     @Autowired
     IAlumnoService alumnoService;
 
     List<TblAlumno> alumnos;
-
     List<TblAlumno> filteredAlumnoLista;
     private TblAlumno selectedAlumno;
 
@@ -38,55 +33,28 @@ public class AlumnoView implements Serializable {
 
     public void listarAlumnos() throws Exception {
         alumnos = alumnoService.listarAlumnos();
+        this.selectedAlumno = new TblAlumno();
+        this.filteredAlumnoLista = new ArrayList<>();
     }
 
     public void deleteAlumno() throws Exception {
         this.alumnos.remove(this.selectedAlumno);
         this.alumnoService.eliminarAlumno(this.selectedAlumno);
         listarAlumnos();
-        this.selectedAlumno = null;
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema", "Alumno eliminado"));
-        PrimeFaces.current().ajax().update("form:messages", "form:dtAlumno");
+        PrimeFaces.current().ajax().update("form:messages", "form:dtAlumno", "form:pnlAlumno");
     }
 
     public void guardar() throws Exception {
+        this.selectedAlumno.setIndEstado(1);
         this.alumnoService.actualizarAlumno(this.selectedAlumno);
-        this.selectedAlumno = null;
         listarAlumnos();
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Sistema", "Alumno actualizado"));
         PrimeFaces.current().ajax().update("form:messages", "form:dtAlumno");
     }
 
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApelledio() {
-        return apelledio;
-    }
-
-    public void setApelledio(String apelledio) {
-        this.apelledio = apelledio;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
+    public void abriNuevo() {
+        this.selectedAlumno = new TblAlumno();
     }
 
     public List<TblAlumno> getAlumnos() {

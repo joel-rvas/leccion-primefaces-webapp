@@ -10,7 +10,7 @@ import java.io.Serializable;
 
 @Named
 @SessionScoped
-public class LoginBean implements Serializable {
+public class LoginSession implements Serializable {
 
     private String coUsua;
     private String dePassUsua;

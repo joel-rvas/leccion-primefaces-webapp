@@ -36,14 +36,16 @@
                             <p:toolbar>
 
                                 <p:toolbarGroup>
-                                    <p:commandButton value="Nuevo" icon="pi pi-plus"
+                                    <p:commandButton value="Nuevo" icon="pi pi-plus" actionListener="#{alumnoView.abriNuevo}"
+                                                     update=":form:alumno-contenido"
+                                                     oncomplete="PF('mantAlumnoDialog').show()"
                                                      styleClass="ui-button-success" style="margin-right: .5rem">
                                     </p:commandButton>
                                 </p:toolbarGroup>
                                 <p:toolbarGroup align="right">
                                     <p:commandButton value="Exportar" icon="pi pi-upload" styleClass="ui-button-help"
                                                      ajax="false">
-                                        <p:dataExporter type="xls" target="dtAlumno" fileName="products"/>
+                                        <p:dataExporter type="xls" target="dtAlumno" fileName="alumnos"/>
                                     </p:commandButton>
                                 </p:toolbarGroup>
                             </p:toolbar>
@@ -51,6 +53,7 @@
 
                             <p:dataTable id="dtAlumno" var="p"
                                          value="#{alumnoView.alumnos}"
+                                         widgetVar="dataTable"
                                          filteredValue="#{alumnoView.filteredAlumnoLista}"
                                          style="text-align: left"
                                          paginatorPosition="bottom"
@@ -90,10 +93,9 @@
                                                      process="@this">
                                         <f:setPropertyActionListener value="#{p}"
                                                                      target="#{alumnoView.selectedAlumno}"/>
-                                        <!--resetInput target=":form:alumno-contenido"-->
                                     </p:commandButton>
                                     <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
-                                                     update=":form:pnlAlumno" process="@this"
+                                                     process="@this"
                                                      oncomplete="PF('deleteAlumnoDialog').show()">
                                         <f:setPropertyActionListener value="#{p}"
                                                                      target="#{alumnoView.selectedAlumno}"/>
@@ -137,19 +139,19 @@
 
                 <div class="p-field">
                     <p:outputLabel for="dni">DNI</p:outputLabel>
-                    <p:inputText id="dni" value="#{alumnoView.selectedAlumno.dni}" required="true" disabled="true"/>
+                    <p:inputText id="dni" value="#{alumnoView.selectedAlumno.dni}" maxlength="8"  disabled="#{alumnoView.selectedAlumno.dni eq null ? false : true}"/>
                 </div>
                 <div class="p-field">
                     <p:outputLabel for="nombre">Nombre</p:outputLabel>
-                    <p:inputText id="nombre" value="#{alumnoView.selectedAlumno.nombre}" required="true"/>
+                    <p:inputText id="nombre" value="#{alumnoView.selectedAlumno.nombre}"/>
                 </div>
                 <div class="p-field">
                     <p:outputLabel for="apellido">Apellido</p:outputLabel>
-                    <p:inputText id="apellido" value="#{alumnoView.selectedAlumno.apellido}" required="true"/>
+                    <p:inputText id="apellido" value="#{alumnoView.selectedAlumno.apellido}"/>
                 </div>
                 <div class="p-field">
                     <p:outputLabel for="celular">Celular</p:outputLabel>
-                    <p:inputText id="celular" value="#{alumnoView.selectedAlumno.celular}" required="true"/>
+                    <p:inputText id="celular" maxlength="12" value="#{alumnoView.selectedAlumno.celular}" />
                 </div>
             </p:outputPanel>
 

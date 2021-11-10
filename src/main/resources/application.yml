@@ -43,6 +43,10 @@ spring:
       mode: always
       platform: h2
 
+joinfaces:
+  jsf:
+    interpret-empty-string-submitted-values-as-null: true
+
 aplication:
   servers:
     - ip: '0.0.0.0'

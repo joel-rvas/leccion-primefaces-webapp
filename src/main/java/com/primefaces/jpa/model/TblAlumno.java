@@ -20,7 +20,7 @@ public class TblAlumno {
     private String apellido;
 
     @Column(name = "celular")
-    private int celular;
+    private String celular;
 
     @Column(name = "ind_estado")
     private int indEstado;
@@ -50,11 +50,11 @@ public class TblAlumno {
         this.apellido = apellido;
     }
 
-    public int getCelular() {
+    public String getCelular() {
         return celular;
     }
 
-    public void setCelular(int celular) {
+    public void setCelular(String celular) {
         this.celular = celular;
     }
 

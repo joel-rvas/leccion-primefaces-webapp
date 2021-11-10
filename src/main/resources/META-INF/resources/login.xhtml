@@ -28,7 +28,7 @@
                     Autenticación de Usuario
                 </f:facet>
                 <p>
-                    <p:inputText id="coUsua" value="#{loginBean.coUsua}"
+                    <p:inputText id="coUsua" value="#{loginSession.coUsua}"
                                  placeholder="usuario"
                                  required="true" style="text-transform:uppercase;"
                                  onblur="value=value.toUpperCase();">
@@ -40,7 +40,7 @@
                 </p>
 
                 <p>
-                    <p:password id="dePassUsua" value="#{loginBean.dePassUsua}"
+                    <p:password id="dePassUsua" value="#{loginSession.dePassUsua}"
                                 placeholder="clave"
                                 style="text-transform:uppercase;"
                                 required="true" maxlength="30"
@@ -52,9 +52,9 @@
                 </p>
 
                 <f:facet name="footer">
-                    <p:commandButton value="Ingresar" icon="pi pi-check" action="#{loginBean.login}"/>
+                    <p:commandButton value="Ingresar" icon="pi pi-check" action="#{loginSession.login}"/>
                     <p:commandButton icon="pi pi-times" value="Cancelar" styleClass="ui-button-secondary"
-                                     update="panel" process="@this" actionListener="#{loginBean.cancelar}"
+                                     update="panel" process="@this" actionListener="#{loginSession.cancelar}"
                                      style="margin-left: .5em"/>
 
                 </f:facet>
