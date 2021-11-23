@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringPrimeFacesApplication {
+public class SpringJoinFacesApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringPrimeFacesApplication.class, args);
+        SpringApplication.run(SpringJoinFacesApplication.class, args);
     }
 }

@@ -1,4 +1,4 @@
-package com.primefaces;
+package com.primefaces.controller;
 
 import com.primefaces.jpa.model.TblAlumno;
 import com.primefaces.services.IAlumnoService;
@@ -29,6 +29,11 @@ public class AlumnoView implements Serializable {
     @PostConstruct
     public void init() throws Exception {
         listarAlumnos();
+    }
+
+    public String logOut() {
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "login";
     }
 
     public void listarAlumnos() throws Exception {

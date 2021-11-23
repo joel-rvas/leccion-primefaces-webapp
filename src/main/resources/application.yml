@@ -8,7 +8,7 @@ app:
     contact-name: Joel Ramirez
     contact-email: joel-rvas@outlook.com
 server:
-  port: 5001
+  port: 5000
 logging:
   level:
     root: DEBUG

@@ -1,4 +1,4 @@
-package com.primefaces;
+package com.primefaces.controller;
 
 import org.primefaces.PrimeFaces;
 
@@ -20,13 +20,9 @@ public class LoginSession implements Serializable {
     static final String clave = "123";
 
     public String login() {
-
         if (coUsua.equals(usuario) && clave.equals(dePassUsua)) {
-            //FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("AUTHENTICATED", "OK");
-            //this.usuario = ((ClaTabSegUsuario)this.usuarioList.get(0));
-            return "alumno";
+            return "alumno?faces-redirect=true";
         }
-
         return "";
     }
 
