@@ -8,11 +8,11 @@
 
 <h:head>
     <title>SISTEMA - PRIMEFACES</title>
+    <h:outputStylesheet library="webjars" name="/primeflex/2.0.0/primeflex.min.css"/>
 </h:head>
 
 <h:body>
-    <h:outputStylesheet library="css" name="seguridad.css"/>
-    <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css"/>
+
 
     <!-- menu -->
     <div class="card">
@@ -34,14 +34,14 @@
 
                 <p:divider layout="vertical"/>
 
-                <p:menuitem value="Quit" action="#{alumnoView.logOut}" icon="pi pi-fw pi-power-off"/>
+                <p:menuitem value="Quit" action="#{personaView.logOut}" icon="pi pi-fw pi-power-off"/>
 
                 <f:facet name="options">
                     <div class="ui-input-icon-left p-mr-2">
                         <i class="pi pi-fw pi-search" />
                         <p:inputText placeholder="Search"/>
                     </div>
-                    <p:commandButton value="Logout" action="#{alumnoView.logOut}" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
+                    <p:commandButton value="Logout" action="#{personaView.logOut}" icon="pi pi-fw pi-sign-out" styleClass="ui-button-info"/>
                 </f:facet>
             </p:menubar>
         </h:form>
@@ -57,8 +57,8 @@
                 <f:facet name="title">
                 </f:facet>
 
-                <p:panel id="pnlAlumno" header="Mantenimiento de Alumno" toggleable="true"
-                         toggleSpeed="500" widgetVar="panelAlumno"
+                <p:panel id="pnlAlumno" header="Mantenimiento de Persona" toggleable="true"
+                         toggleSpeed="500" widgetVar="panelPersona"
                          style="margin-top:10px; align:center">
 
                     <p:row>
@@ -70,25 +70,25 @@
                             <p:toolbar>
 
                                 <p:toolbarGroup>
-                                    <p:commandButton value="Nuevo" icon="pi pi-plus" actionListener="#{alumnoView.abriNuevo}"
-                                                     update=":form:alumno-contenido"
-                                                     oncomplete="PF('mantAlumnoDialog').show()"
+                                    <p:commandButton value="Nuevo" icon="pi pi-plus" actionListener="#{personaView.abriNuevo}"
+                                                     update=":form:persona-contenido"
+                                                     oncomplete="PF('mantPersonaDialog').show()"
                                                      styleClass="ui-button-success" style="margin-right: .5rem">
                                     </p:commandButton>
                                 </p:toolbarGroup>
                                 <p:toolbarGroup align="right">
                                     <p:commandButton value="Exportar" icon="pi pi-upload" styleClass="ui-button-help"
                                                      ajax="false">
-                                        <p:dataExporter type="xls" target="dtAlumno" fileName="alumnos"/>
+                                        <p:dataExporter type="xls" target="dtPersona" fileName="personas"/>
                                     </p:commandButton>
                                 </p:toolbarGroup>
                             </p:toolbar>
 
 
-                            <p:dataTable id="dtAlumno" var="p"
-                                         value="#{alumnoView.alumnos}"
+                            <p:dataTable id="dtPersona" var="p"
+                                         value="#{personaView.personas}"
                                          widgetVar="dataTable"
-                                         filteredValue="#{alumnoView.filteredAlumnoLista}"
+                                         filteredValue="#{personaView.filteredPersonaLista}"
                                          style="text-align: left"
                                          paginatorPosition="bottom"
                                          paginator="true" rows="10"
@@ -122,18 +122,18 @@
                                 </p:column>-->
 
                                 <p:column exportable="false" width="100">
-                                    <p:commandButton icon="pi pi-pencil" update=":form:alumno-contenido"
-                                                     oncomplete="PF('mantAlumnoDialog').show()"
+                                    <p:commandButton icon="pi pi-pencil" update=":form:persona-contenido"
+                                                     oncomplete="PF('mantPersonaDialog').show()"
                                                      styleClass="edit-button rounded-button ui-button-success"
                                                      process="@this">
                                         <f:setPropertyActionListener value="#{p}"
-                                                                     target="#{alumnoView.selectedAlumno}"/>
+                                                                     target="#{personaView.selectedPersona}"/>
                                     </p:commandButton>
                                     <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
                                                      process="@this"
-                                                     oncomplete="PF('deleteAlumnoDialog').show()">
+                                                     oncomplete="PF('deletePersonaDialog').show()">
                                         <f:setPropertyActionListener value="#{p}"
-                                                                     target="#{alumnoView.selectedAlumno}"/>
+                                                                     target="#{personaView.selectedPersona}"/>
                                     </p:commandButton>
                                 </p:column>
 
@@ -152,14 +152,14 @@
             </p:card>
         </p:outputPanel>
 
-        <p:confirmDialog widgetVar="deleteAlumnoDialog" showEffect="fade" width="300"
-                         message="Desea eliminar al alumno?" header="Confirmar" severity="warn">
+        <p:confirmDialog widgetVar="deletePersonaDialog" showEffect="fade" width="300"
+                         message="Desea eliminar al persona?" header="Confirmar" severity="warn">
 
-            <p:commandButton value="Si" icon="pi pi-check" actionListener="#{alumnoView.deleteAlumno}"
-                             process="@this" oncomplete="PF('deleteAlumnoDialog').hide()"/>
+            <p:commandButton value="Si" icon="pi pi-check" actionListener="#{personaView.deletePersona}"
+                             process="@this" oncomplete="PF('deletePersonaDialog').hide()"/>
 
             <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                             onclick="PF('deleteAlumnoDialog').hide()"/>
+                             onclick="PF('deletePersonaDialog').hide()"/>
         </p:confirmDialog>
 
         <p:confirmDialog global="true" showEffect="fade" width="300">
@@ -168,33 +168,33 @@
                              icon="pi pi-times"/>
         </p:confirmDialog>
 
-        <p:dialog header="Alumno Mantenimiento" showEffect="fade" modal="true" widgetVar="mantAlumnoDialog" width="350" responsive="true">
+        <p:dialog header="Persona Mantenimiento" showEffect="fade" modal="true" widgetVar="mantPersonaDialog" width="350" responsive="true">
 
-            <p:outputPanel id="alumno-contenido" class="ui-fluid">
+            <p:outputPanel id="persona-contenido" class="ui-fluid">
 
                 <div class="p-field">
                     <p:outputLabel for="dni">DNI</p:outputLabel>
-                    <p:inputText id="dni" value="#{alumnoView.selectedAlumno.dni}" maxlength="8"  disabled="#{alumnoView.selectedAlumno.dni eq null ? false : true}"/>
+                    <p:inputText id="dni" value="#{personaView.selectedPersona.dni}" maxlength="8" disabled="#{personaView.selectedPersona.dni eq null ? false : true}"/>
                 </div>
                 <div class="p-field">
                     <p:outputLabel for="nombre">Nombre</p:outputLabel>
-                    <p:inputText id="nombre" value="#{alumnoView.selectedAlumno.nombre}"/>
+                    <p:inputText id="nombre" value="#{personaView.selectedPersona.nombre}"/>
                 </div>
                 <div class="p-field">
                     <p:outputLabel for="apellido">Apellido</p:outputLabel>
-                    <p:inputText id="apellido" value="#{alumnoView.selectedAlumno.apellido}"/>
+                    <p:inputText id="apellido" value="#{personaView.selectedPersona.apellido}"/>
                 </div>
                 <div class="p-field">
                     <p:outputLabel for="celular">Celular</p:outputLabel>
-                    <p:inputText id="celular" maxlength="12" value="#{alumnoView.selectedAlumno.celular}" />
+                    <p:inputText id="celular" maxlength="12" value="#{personaView.selectedPersona.celular}" />
                 </div>
             </p:outputPanel>
 
             <f:facet name="footer">
-                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{alumnoView.guardar}"
-                                 oncomplete="PF('mantAlumnoDialog').hide()"
-                                 update="alumno-contenido" process="alumno-contenido @this"/>
-                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('mantAlumnoDialog').hide()"
+                <p:commandButton value="Save" icon="pi pi-check" actionListener="#{personaView.guardar}"
+                                 oncomplete="PF('mantPersonaDialog').hide()"
+                                 update="persona-contenido" process="persona-contenido @this"/>
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('mantPersonaDialog').hide()"
                                  class="ui-button-secondary"/>
             </f:facet>
 

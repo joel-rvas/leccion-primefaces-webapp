@@ -6,8 +6,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tbl_alumno")
-public class TblAlumno {
+@Table(name = "tbl_persona")
+public class TblPersona {
 
     @Id
     @Column(name = "dni")
@@ -21,9 +21,6 @@ public class TblAlumno {
 
     @Column(name = "celular")
     private String celular;
-
-    @Column(name = "ind_estado")
-    private int indEstado;
 
 
     public String getDni() {
@@ -58,11 +55,4 @@ public class TblAlumno {
         this.celular = celular;
     }
 
-    public int getIndEstado() {
-        return indEstado;
-    }
-
-    public void setIndEstado(int indEstado) {
-        this.indEstado = indEstado;
-    }
 }

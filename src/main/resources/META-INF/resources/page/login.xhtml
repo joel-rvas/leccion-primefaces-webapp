@@ -8,19 +8,20 @@
 
 <h:head>
     <title>SISTEMA - PRIMEFACES</title>
+    <h:outputStylesheet library="webjars" name="/primeflex/2.0.0/primeflex.min.css"/>
+
 </h:head>
 
 <h:body>
-    <!--<h:outputStylesheet library="css" name="seguridad.css"/>-->
-    <h:outputStylesheet library="webjars" name="primeflex/2.0.0/primeflex.min.css" />
+
 
     <h:form id="form">
 
         <p:outputLabel for="coUsua" value="Usuario" style="visibility:hidden"/>
         <p:outputLabel for="dePassUsua" value="Clave" style="visibility:hidden"/>
 
-        <p:outputPanel id="panel" styleClass="p-mb-2">
-            <p:card id="card" style="width: 25em;  margin: 0 auto; text-align: center;" class="p-t-4">
+        <p:outputPanel id="panel" styleClass="p-mt-5">
+            <p:card styleClass="p-mt-6" id="card" style="width: 25em;  margin: 0 auto; text-align: center;" >
                 <f:facet name="header">
                     <img alt="user header" style="width: 60%;" src="/images/logo.png"/>
                 </f:facet>
@@ -62,12 +63,13 @@
             </p:card>
         </p:outputPanel>
 
-        <div class="p-mt-4" style="width: 25em;  margin: 0 auto; text-align: center;">
-            <p:message id="msgCoUsua" for="coUsua" display="text" />
+        <div class="p-mt-4" style="width: 25em; text-align: center;">
+            <p:message id="msgCoUsua" for="coUsua" display="text"/>
         </div>
 
-        <div class="p-mt-2" style="width: 25em;  margin: 0 auto; text-align: center;">
-            <p:message id="msgDePassUsua" for="dePassUsua" display="text" style="width: 25em;  margin: 0 auto; text-align: center;"/>
+        <div class="p-mt-2" style="width: 25em; text-align: center;">
+            <p:message id="msgDePassUsua" for="dePassUsua" display="text"
+                       style="width: 25em;  margin: 0 auto; text-align: center;"/>
         </div>
 
 

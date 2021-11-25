@@ -21,7 +21,7 @@ public class LoginSession implements Serializable {
 
     public String login() {
         if (coUsua.equals(usuario) && clave.equals(dePassUsua)) {
-            return "alumno?faces-redirect=true";
+            return "persona?faces-redirect=true";
         }
         return "";
     }
